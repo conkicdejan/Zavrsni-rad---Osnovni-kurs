@@ -35,3 +35,7 @@ width: 50%;
   margin-bottom: 10px;
 }
 
+.new-author-gender *{
+display: inline;
+padding: 5px;
+}
