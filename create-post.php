@@ -1,3 +1,17 @@
+<?php
+require_once('db.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_POST['title']) && !empty($_POST['body']) && !empty($_POST['author'])) {
+
+        $sqlWriteNewPost = "INSERT INTO posts (title, body, author, created_at) 
+        VALUES ('{$_POST['title']}', '{$_POST['body']}', '{$_POST['author']}', NOW())";
+        setDataToServer($sqlWriteNewPost, $connection);
+    }
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -30,8 +44,14 @@
     <main role="main" class="container">
 
         <div class="row">
-
-            <h1>New post form</h1>
+            <div class='col-sm-8 blog-main'>
+                <form class='new-post-form' action="create-post.php" method="post">
+                    <input type="text" name="author" id="" placeholder="Enter your name" required>
+                    <input type="text" name="title" id="" placeholder="Enter post title" required>
+                    <textarea name="body" id="" cols="50" rows="5" placeholder="Enter some text..." required></textarea>
+                    <input type="Submit" value="Add new post">
+                </form>
+            </div>
 
             <?php include 'sidebar.php' ?>
 
