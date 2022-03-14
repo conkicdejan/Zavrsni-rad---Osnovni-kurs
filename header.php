@@ -1,5 +1,5 @@
 <div class="blog-masthead">
-    <div class="container">
+    <div class="container nav-container-override">
         <nav class="nav">
             <a class="nav-link active" href="index.php">Home</a>
             <a class="nav-link" href="create-post.php">Create new post</a>
