@@ -1,3 +1,15 @@
+<?php
+require_once('db.php');
+ini_set('display_errors', 1);
+
+$sqlGetPostById = "SELECT * FROM posts WHERE posts.id = '{$_GET['id']}'";
+$post = getDataFromServer($sqlGetPostById, $connection, false);
+
+$sqlGetCommentsByPostId = "SELECT * FROM comments WHERE post_id = '{$_GET['id']}'";
+$comments = getDataFromServer($sqlGetCommentsByPostId, $connection);
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -32,18 +44,25 @@
         <div class="row">
 
             <div class="col-sm-8 blog-main">
-
                 <div class="blog-post">
-                    <h2 class="blog-post-title">Another blog post</h2>
-                    <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-
-                    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                    <blockquote>
-                        <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    </blockquote>
-                    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    <a href="" class="blog-post-title">
+                        <h2><?php echo $post['title'] ?></h2>
+                    </a>
+                    <p class="blog-post-meta"><?php echo date_format(date_create($post['created_at']), 'd-F-Y') ?> by <a href="#"><?php echo $post['author'] ?></a></p>
+                    <p><?php echo $post['body'] ?></p>
                 </div><!-- /.blog-post -->
+
+                <div class='comments-container'>
+                    <h3>Comments:</h3>
+                    <ul class='comment-list'>
+                        <?php foreach ($comments as $comment) { ?>
+                            <li class='comment-item'>
+                                <h4><?php echo $comment['author'] ?></h4>
+                                <p><?php echo $comment['text'] ?></p>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
 
             </div><!-- /.blog-main -->
 

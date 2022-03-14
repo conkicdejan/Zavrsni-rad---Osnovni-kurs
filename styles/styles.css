@@ -1,15 +1,26 @@
-.nav-container-override{
-    background-color: #b34848;
+.blog-masthead {
+  background-color: #b34848;
 }
 
-*{
-    font-size: 14px;
+* {
+  font-size: 14px;
 }
 
-h1, h2, h3, h4, h5, h6{
-    color: #b34848;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #b34848;
 }
 
-.blog-post-title:hover{
-    color: #b34848
+.blog-post-title:hover {
+  color: #b34848;
+}
+
+.comment-item {
+  border-bottom: 1px solid gray;
+  list-style: none;
+  margin-top: 10px;
 }
