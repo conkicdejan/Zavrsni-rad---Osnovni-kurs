@@ -25,17 +25,25 @@ h6 {
   margin-top: 10px;
 }
 
-.new-post-form{
-margin-left: 30px;
-width: 50%;
+.new-post-form {
+  margin-left: 30px;
+  width: 50%;
 }
 
-.new-post-form *{
+.new-post-form * {
   display: block;
   margin-bottom: 10px;
 }
 
-.new-author-gender *{
-display: inline;
-padding: 5px;
+.new-author-gender * {
+  display: inline;
+  padding: 5px;
+}
+
+.author-m {
+  color: blue;
+}
+
+.author-f {
+  color: magenta;
 }

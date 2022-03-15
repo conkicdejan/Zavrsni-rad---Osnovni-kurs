@@ -27,3 +27,12 @@ function setDataToServer($sql, $connection)
     $statement = $connection->prepare($sql);
     $statement->execute();
 };
+
+function setGenderClassCSS($author)
+{
+    if ($author['gender'] == 'M') {
+        echo 'author-m';
+    } else {
+        echo 'author-f';
+    }
+}

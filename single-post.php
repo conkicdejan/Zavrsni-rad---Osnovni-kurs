@@ -2,11 +2,18 @@
 require_once('db.php');
 ini_set('display_errors', 1);
 
-$sqlGetPostById = "SELECT * FROM posts WHERE posts.id = '{$_GET['id']}'";
+$sqlGetPostById = "SELECT posts.*, author.first_name, author.last_name, author.gender FROM posts
+LEFT JOIN author ON posts.author_id = author.id
+WHERE posts.id = '{$_GET['id']}'";
 $post = getDataFromServer($sqlGetPostById, $connection, false);
 
-$sqlGetCommentsByPostId = "SELECT * FROM comments WHERE post_id = '{$_GET['id']}'";
+$sqlGetCommentsByPostId = "SELECT comments.*, author.first_name, author.last_name, author.gender FROM comments 
+LEFT JOIN author ON comments.author_id = author.id
+WHERE post_id = '{$_GET['id']}'";
 $comments = getDataFromServer($sqlGetCommentsByPostId, $connection);
+
+$sqlGetAuthors = "SELECT * FROM author";
+$authors = getDataFromServer($sqlGetAuthors, $connection);
 
 ?>
 
@@ -48,7 +55,7 @@ $comments = getDataFromServer($sqlGetCommentsByPostId, $connection);
                     <a href="" class="blog-post-title">
                         <h2><?php echo $post['title'] ?></h2>
                     </a>
-                    <p class="blog-post-meta"><?php echo date_format(date_create($post['created_at']), 'd-F-Y') ?> by <a href="#"><?php echo $post['author'] ?></a></p>
+                    <p class="blog-post-meta"><?php echo date_format(date_create($post['created_at']), 'd-F-Y') ?> by <a class="<?php setGenderClassCSS($post) ?>" href="#"><?php echo "{$post['first_name']} {$post['last_name']}" ?></a></p>
                     <p><?php echo $post['body'] ?></p>
                 </div><!-- /.blog-post -->
 
@@ -57,7 +64,7 @@ $comments = getDataFromServer($sqlGetCommentsByPostId, $connection);
                     <ul class='comment-list'>
                         <?php foreach ($comments as $comment) { ?>
                             <li class='comment-item'>
-                                <h4><?php echo $comment['author'] ?></h4>
+                                <h5><?php echo "{$comment['first_name']} {$comment['last_name']}" ?></h5>
                                 <p><?php echo $comment['text'] ?></p>
                             </li>
                         <?php } ?>

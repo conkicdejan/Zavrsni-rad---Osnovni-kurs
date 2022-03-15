@@ -4,11 +4,14 @@ require_once('db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['title']) && !empty($_POST['body']) && !empty($_POST['author'])) {
 
-        $sqlWriteNewPost = "INSERT INTO posts (title, body, author, created_at) 
+        $sqlWriteNewPost = "INSERT INTO posts (title, body, author_id, created_at) 
         VALUES ('{$_POST['title']}', '{$_POST['body']}', '{$_POST['author']}', NOW())";
         setDataToServer($sqlWriteNewPost, $connection);
     }
 }
+
+$sqlGetAuthors = "SELECT * FROM author";
+$authors = getDataFromServer($sqlGetAuthors, $connection);
 
 ?>
 
@@ -23,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Vivify Blog - single post</title>
+    <title>Vivify Blog - create post</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -46,7 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row">
             <div class='col-sm-8 blog-main'>
                 <form class='new-post-form' action="create-post.php" method="post">
-                    <input type="text" name="author" id="" placeholder="Enter your name" required>
+                    <select name="author" id="" required>
+                        <option value='' selected disabled hidden>Choose author</option>
+                        <?php foreach ($authors as $author) { ?>
+                            <option class="<?php setGenderClassCSS($author) ?>" value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
+                        <?php } ?>
+                    </select>
                     <input type="text" name="title" id="" placeholder="Enter post title" required>
                     <textarea name="body" id="" cols="50" rows="5" placeholder="Enter some text..." required></textarea>
                     <input type="Submit" value="Add new post">
