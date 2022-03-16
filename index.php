@@ -38,16 +38,25 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
 
     <main role="main" class="container">
         <div class='filter-author-container'>
-            <form action="index.php" method="post">
+            <form class='sort' action="index.php" method="post">
                 <select name="author" id="" required>
                     <option value=0 selected>All</option>
                     <?php foreach ($authors as $author) { ?>
                         <option value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
                     <?php } ?>
-                    <input type="Submit" value="Show posts">
                 </select>
-            </form><br/>
+                <input type="Submit" value="Show posts">
+            </form>
+            Sort:
+            <form class='sort' action="index.php" method="post">
+                <input type="hidden" name="sort" value=true>
+                <input type="Submit" value="ᐱ">
+            </form>
+            <form class='sort' action="index.php" method="post">
+                <input type="Submit" value="ᐯ">
+            </form>
         </div>
+
 
         <div class="row">
             <?php include 'posts.php' ?>

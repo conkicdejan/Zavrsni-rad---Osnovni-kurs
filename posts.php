@@ -2,16 +2,23 @@
 require_once('db.php');
 ini_set('display_errors', 1);
 
-if(isset($_POST['author']) && $_POST['author'] > 0){
-    $filterAuthor = "'".$_POST['author']."'";
-}else{
+if (isset($_POST['author']) && $_POST['author'] > 0) {
+    $filterAuthor = "'" . $_POST['author'] . "'";
+} else {
     $filterAuthor = 'null';
+}
+
+
+if (isset($_POST['sort'])) {
+    $sortType = 'ASC';
+} else {
+    $sortType = 'DESC';
 }
 
 $sqlGetAllPosts = "SELECT posts.*, author.id as author_id, author.first_name, author.last_name, author.gender FROM posts
 LEFT JOIN author ON posts.author_id = author.id
 WHERE author_id = COALESCE($filterAuthor, author_id)
-ORDER BY created_at DESC";
+ORDER BY created_at $sortType";
 $posts = getDataFromServer($sqlGetAllPosts, $connection);
 
 ?>
