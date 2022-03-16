@@ -69,7 +69,7 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
                                 <option value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
                             <?php } ?>
                         </select>
-                        <textarea name="text" id="" cols="50" rows="5" placeholder="Enter some text..." required></textarea>
+                        <textarea name="text" id="textarea" cols="50" rows="5" placeholder="Enter some text..." required></textarea>
                         <input type="hidden" name="postid" id="" value="<?php echo $post['id'] ?>">
                         <input type="Submit" value="Add comment">
                     </form>
