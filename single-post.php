@@ -1,6 +1,7 @@
 <?php
 require_once('db.php');
 ini_set('display_errors', 1);
+// require_once('create-comment.php');
 
 $sqlGetPostById = "SELECT posts.*, author.first_name, author.last_name, author.gender FROM posts
 LEFT JOIN author ON posts.author_id = author.id
@@ -58,6 +59,21 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
                     <p class="blog-post-meta"><?php echo date_format(date_create($post['created_at']), 'd-F-Y') ?> by <a class="<?php setGenderClassCSS($post) ?>" href="#"><?php echo "{$post['first_name']} {$post['last_name']}" ?></a></p>
                     <p><?php echo $post['body'] ?></p>
                 </div><!-- /.blog-post -->
+
+                <div class='add-comment-form'>
+                    <form action="create-comment.php" method="post">
+                        <h3>Add comment</h3>
+                        <select name="author" id="" required>
+                            <option value='' selected disabled hidden>Choose author</option>
+                            <?php foreach ($authors as $author) { ?>
+                                <option value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
+                            <?php } ?>
+                        </select>
+                        <textarea name="text" id="" cols="50" rows="5" placeholder="Enter some text..." required></textarea>
+                        <input type="hidden" name="postid" id="" value="<?php echo $post['id'] ?>">
+                        <input type="Submit" value="Add comment">
+                    </form>
+                </div>
 
                 <div class='comments-container'>
                     <h3>Comments:</h3>
