@@ -1,3 +1,12 @@
+<?php
+require_once('db.php');
+ini_set('display_errors', 1);
+
+$sqlGetAuthors = "SELECT * FROM author";
+$authors = getDataFromServer($sqlGetAuthors, $connection);
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -28,9 +37,19 @@
     </header>
 
     <main role="main" class="container">
+        <div class='filter-author-container'>
+            <form action="index.php" method="post">
+                <select name="author" id="" required>
+                    <option value=0 selected>All</option>
+                    <?php foreach ($authors as $author) { ?>
+                        <option value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
+                    <?php } ?>
+                    <input type="Submit" value="Show posts">
+                </select>
+            </form><br/>
+        </div>
 
         <div class="row">
-
             <?php include 'posts.php' ?>
 
             <?php include 'sidebar.php' ?>
