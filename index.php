@@ -50,10 +50,10 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
             Sort:
             <form class='sort' action="index.php" method="post">
                 <input type="hidden" name="sort" value=true>
-                <input type="Submit" value="ᐱ">
+                <input class='sort-button' type="Submit" value="ᐱ" id='sort-up'>
             </form>
             <form class='sort' action="index.php" method="post">
-                <input type="Submit" value="ᐯ">
+                <input class='sort-button' type="Submit" value="ᐯ" id='sort-down'>
             </form>
         </div>
 
@@ -73,5 +73,13 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
 
     </footer>
 </body>
-
+    <script>
+        var buttonUp = document.getElementById('sort-up');
+        var buttonDown = document.getElementById('sort-down');
+        if (<?php echo "'$sortType'" ?> == 'ASC') {
+            buttonUp.className += ' active-sort-button';
+        } else {
+            buttonDown.className += ' active-sort-button';
+        } 
+    </script>
 </html>

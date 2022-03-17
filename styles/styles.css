@@ -112,3 +112,15 @@ h6 {
 .sort {
   display: inline;
 }
+
+.sort-button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.active-sort-button {
+  color: green;
+  font-weight: bold;
+}
