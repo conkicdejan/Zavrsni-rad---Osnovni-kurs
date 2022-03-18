@@ -1,6 +1,15 @@
 <?php
+session_start();
 require_once('db.php');
 ini_set('display_errors', 1);
+
+$_SESSION['loggedUserId'] ??= 0;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['logAuthor'])) {
+        $_SESSION['loggedUserId'] = $_POST['logAuthor'];
+    }
+}
 
 $sqlGetAuthors = "SELECT * FROM author";
 $authors = getDataFromServer($sqlGetAuthors, $connection);
@@ -73,13 +82,13 @@ $authors = getDataFromServer($sqlGetAuthors, $connection);
 
     </footer>
 </body>
-    <script>
-        var buttonUp = document.getElementById('sort-up');
-        var buttonDown = document.getElementById('sort-down');
-        if (<?php echo "'$sortType'" ?> == 'ASC') {
-            buttonUp.className += ' active-sort-button';
-        } else {
-            buttonDown.className += ' active-sort-button';
-        } 
-    </script>
+<script>
+    var buttonUp = document.getElementById('sort-up');
+    var buttonDown = document.getElementById('sort-down');
+    if (<?php echo "'$sortType'" ?> == 'ASC') {
+        buttonUp.className += ' active-sort-button';
+    } else {
+        buttonDown.className += ' active-sort-button';
+    }
+</script>
 </html>

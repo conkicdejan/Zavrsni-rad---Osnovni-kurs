@@ -16,6 +16,15 @@
     </div>
 </div>
 
+<form action="index.php" method="post">
+    <select onchange="this.form.submit();" name="logAuthor" id="" required>
+        <option value='' selected disabled hidden>Choose author</option>
+        <?php foreach ($authors as $author) { ?>
+            <option value="<?php echo $author['id'] ?>"><?php echo "{$author['first_name']} {$author['last_name']}" ?></option>
+        <?php } ?>
+    </select>
+</form>
+
 <div class="blog-header">
     <div class="container">
         <h1 class="blog-title">The Bootstrap Blog</h1>

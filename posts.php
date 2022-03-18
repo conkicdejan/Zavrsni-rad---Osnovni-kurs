@@ -31,6 +31,16 @@ $posts = getDataFromServer($sqlGetAllPosts, $connection);
             </a>
             <p class="blog-post-meta"><?php echo date_format(date_create($post['created_at']), 'd-F-Y') ?> by <a href="#"><?php echo "{$post['first_name']} {$post['last_name']}" ?></a></p>
             <p><?php echo $post['body'] ?></p>
+            <?php if ($post['author_id'] == $_SESSION['loggedUserId']) { ?>
+                <form class='sort' action="delete-post.php" method="post">
+                    <input type="hidden" name="postid" value=<?php echo $post['id'] ?>>
+                    <input type="Submit" value="Delete">
+                </form>
+                <form class='sort' action="edit-post.php" method="get">
+                    <input type="hidden" name="id" value=<?php echo $post['id'] ?>>
+                    <input type="Submit" value="Edit">
+                </form>
+            <?php } ?>
         </div><!-- /.blog-post -->
     <?php } ?>
 
